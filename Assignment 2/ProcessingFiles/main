@@ -1,0 +1,49 @@
+from Bubble import bubble
+
+global xpos, r, g, b;
+xpos = 700
+r = 0
+g = 0
+b = 232
+
+def setup():    
+    size (700, 700)
+    frameRate(3)
+    noStroke()
+
+def backgroundShade():
+    global r,g,b
+    pushStyle()
+    for i in range(0, height):
+        strokeWeight(3)
+        stroke(r, i//3, b)
+        line(0, i, width, i)
+    popStyle()
+        
+def draw():
+    global r,g,b
+    global xpos
+    backgroundShade()
+    noStroke()
+    Bub = bubble(width, height)
+    x = random(0,10)
+    
+    if x<=6:
+        Bub.generateBubble()
+    
+    '''x = random(r, 70)
+    y = random(70, 150)
+    v = random(45, 50)
+    #delay(100)
+    z = 175
+    fill(x, y, b, v)
+    rect(0,0, height, width)
+    strokeWeight(5)
+    stroke(156,169, 175)
+    fill(174,223, 245, 50)
+    directionalLight(122, 102, 126, 0, -1, 0);
+    ellipse(200, xpos, 30, 30)
+    xpos = xpos-1'''
+    
+    
+    
