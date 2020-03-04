@@ -55,6 +55,6 @@ class bubble(object):
         ellipse(pos[0], pos[1], self.radiusExt, self.radiusExt)
         
         if self.radiusExt >= 15:
-            shade = self.generateShade()'''
+            shade = self.generateShade()
         
         
