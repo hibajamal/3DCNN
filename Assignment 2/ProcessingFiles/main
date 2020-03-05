@@ -1,35 +1,78 @@
 from Bubble import bubble
+from Button import button
 
-global xpos, r, g, b;
+global xpos, r, g, b, swarmCount;
 xpos = 700
 r = 0
 g = 0
 b = 232
+swarmCount = 4
 
 def setup():    
     size (700, 700)
-    frameRate(3)
-    noStroke()
+    #frameRate(10)
+    #noStroke()
+    fullScreen()
 
+def interface(swarmCount):
+    interfaceHeight = height
+    interfaceWidth = width*0.25
+    lineMargin = 10
+    interfaceText = interfaceWidth*0.06
+    heightMargin = height*0.08
+    widthMargin = width*0.04
+    font = createFont("Georgia", interfaceText)
+    textFont(font)
+    textAlign(LEFT)
+    
+    fill(0,0,0)
+    
+    rect(0, 0, interfaceWidth, interfaceHeight)
+    
+    fill(250,250,250)
+
+    text("Frame Count =  "+ str(frameCount), widthMargin, heightMargin)
+    text("Swarm Count =  "+str(swarmCount), widthMargin, heightMargin*2)
+    text("Duration = ", widthMargin, heightMargin*3)
+    text("Food Location = ", widthMargin, heightMargin*4)
+    
+    return heightMargin*4
+    
+    
 def backgroundShade():
-    global r,g,b
+    global r,g,b, swarmCount
+   
     pushStyle()
     for i in range(0, height):
         strokeWeight(3)
         stroke(r, i//3, b)
         line(0, i, width, i)
     popStyle()
+    nextPos = interface(swarmCount)
+
+    return nextPos
         
 def draw():
+    delay(100)
     global r,g,b
     global xpos
-    backgroundShade()
-    noStroke()
+    run = backgroundShade()
+    #noStroke()
     Bub = bubble(width, height)
+    but = button(70,70,300,run*5,"lable", 23)
+    but.Draw()
     x = random(0,10)
-    
-    if x<=6:
-        Bub.generateBubble()
+    list1 = []
+    if x<3:
+        for i in range(0,6):
+            list1.append(bubble(width,height))
+            list1.append(bubble(width,height))
+            #list1.append(Bub)
+        for j in list1:
+            j.generateBubble()
+            if list1>3:
+                list1.pop()
+            #j.moveBubble()
     
     '''x = random(r, 70)
     y = random(70, 150)
