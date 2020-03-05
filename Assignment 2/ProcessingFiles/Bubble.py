@@ -9,7 +9,9 @@ class bubble(object):
         self.strokeShade = [71, 130, 247, 24]
         self.radiusExt = int(random(10, 25))
         self.radiusInt = int(random(5, 10))
-        self.radiusExt = 40
+        #self.radiusExt = 40
+        self.x = 0
+        self.y = 0
         
     
     def position(self):
@@ -19,9 +21,13 @@ class bubble(object):
     
     def shadePosition(self):
         pos = self.position()
-        theta = random(0, 6.28)
+        theta = random(0, 360)
+        #theta = degrees(theta)
         x = pos[0]+self.radiusExt*cos(theta)
         y = pos[1]+self.radiusExt*sin(theta)
+        theta = 225
+        x = 120+120*cos(theta*PI/180)+55
+        y = 120+120*sin(theta*PI/180)+55
         return([x, y])
                  
     def generateShade(self):
@@ -31,6 +37,7 @@ class bubble(object):
         light = int(random(0, 3))
         angle = self.lightAngle[light]
         pointLight(col[0], col[1], col[2], angle[0], angle[1], angle[2]);
+        fill(200,34,100)
         ellipse(pos[0], pos[1], self.radiusInt, self.radiusInt) 
     
     def colorBub(self):
@@ -46,15 +53,28 @@ class bubble(object):
         colour = self.colorBub()
         colBlue = colour[0]
         light = colour[1]
-        strokeWeight(10)
+        strokeWeight(2)
         stroke(strokeShade[0], strokeShade[1], strokeShade[2], strokeShade[3])
         pointLight(colBlue[0], colBlue[1], colBlue[2], light[0], light[1], light[2]);
        
         #pointLight(0, 100, 255, 30, 200, 200);
-        #fill(12,30,190)
+        stroke(15, 60, 151)
+        fill(83,183,249, 80)
+        stroke(100,100,100)
+        stroke(190,190,190)
         ellipse(pos[0], pos[1], self.radiusExt, self.radiusExt)
+        self.x = pos[0]
+        self.y = pos[1]
         
-        if self.radiusExt >= 15:
-            shade = self.generateShade()
+        '''if self.radiusExt >= 15:
+            shade = self.generateShade()'''
         
-        
+    def moveBubble(self):
+        print("we're here")
+        radius = self.radiusExt
+        print(radius)
+        newRad = radius + radius*0.2
+        x = self.x
+        y = self.y
+        while (radius < newRad):
+            ellipse(x, y+1, radius+1, radius+1)
