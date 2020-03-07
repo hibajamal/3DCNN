@@ -19,7 +19,7 @@ class button(object):
         #text(self.label, 20,20)
   
     def IsPressed(self):
-        if (!mousePressed):
+        if not mousePressed:
             return false
         
         if(mouseX >= self.x and mouseX <= self.x + self.width):
