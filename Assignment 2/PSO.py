@@ -48,7 +48,8 @@ class Swarm:
 		print("Food Source placed at:", self.foodSource.x, ",", self.foodSource.y)
 
 	def fitnessFunc(self, particle):
-		return ((particle.x - self.foodSource.x)**2 +(particle.y - self.foodSource.y)**2)**(1/2)
+		# fitness is inverse of distance
+		return 1/(((particle.x - self.foodSource.x)**2 +(particle.y - self.foodSource.y)**2)**(1/2))
 
 	def addVectors(self, vectors):
 		cx, cy = 0, 0
@@ -94,7 +95,7 @@ class Swarm:
 				t2 = self.subtVectors(self.particles[i].pbest, self.particles[i].currPos).mulC(self.c1*r1)
 				t3 = self.subtVectors(self.gbest, self.particles[i].currPos).mulC(self.c2*r2)
 				self.particles[i].currPos =  self.addVectors([t1, t2, t3])
-			print(lst, "\nNext iteration:", j+1)
+			print("avg:", sum(lst)/len(lst), "\nNext iteration:", j+1)
 			ax.plot(lst, color='r')
 			fig.canvas.draw()
 
