@@ -9,7 +9,6 @@ class bubble(object):
         self.strokeShade = [71, 130, 247, 24]
         self.radiusExt = int(random(10, 25))
         self.radiusInt = int(random(5, 10))
-        #self.radiusExt = 40
         self.x = 0
         self.y = 0
         
