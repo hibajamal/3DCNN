@@ -64,9 +64,7 @@ class bubble(object):
         ellipse(pos[0], pos[1], self.radiusExt, self.radiusExt)
         self.x = pos[0]
         self.y = pos[1]
-        
-        '''if self.radiusExt >= 15:
-            shade = self.generateShade()'''
+       
         
     def moveBubble(self):
         print("we're here")
