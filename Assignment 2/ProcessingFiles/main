@@ -1,7 +1,9 @@
 from Bubble import bubble
 from Button import button
+from Background import Background
 
 global xpos, r, g, b, swarmCount;
+
 xpos = 700
 r = 0
 g = 0
@@ -9,84 +11,21 @@ b = 232
 swarmCount = 4
 
 def setup():    
-    size (700, 700)
-    #frameRate(10)
-    #noStroke()
+    size (900, 1000)
+    noStroke()
     fullScreen()
-
-def interface(swarmCount):
-    interfaceHeight = height
-    interfaceWidth = width*0.25
-    lineMargin = 10
-    interfaceText = interfaceWidth*0.06
-    heightMargin = height*0.08
-    widthMargin = width*0.04
-    font = createFont("Georgia", interfaceText)
-    textFont(font)
-    textAlign(LEFT)
+    frameRate(7)
     
-    fill(0,0,0)
-    
-    rect(0, 0, interfaceWidth, interfaceHeight)
-    
-    fill(250,250,250)
-
-    text("Frame Count =  "+ str(frameCount), widthMargin, heightMargin)
-    text("Swarm Count =  "+str(swarmCount), widthMargin, heightMargin*2)
-    text("Duration = ", widthMargin, heightMargin*3)
-    text("Food Location = ", widthMargin, heightMargin*4)
-    
-    return heightMargin*4
-    
-    
-def backgroundShade():
-    global r,g,b, swarmCount
-   
-    pushStyle()
-    for i in range(0, height):
-        strokeWeight(3)
-        stroke(r, i//3, b)
-        line(0, i, width, i)
-    popStyle()
-    nextPos = interface(swarmCount)
-
-    return nextPos
+    global img
+    global img1
+    img = loadImage("grass.jpg")
+    img1 = loadImage("grass1.jpg")
         
 def draw():
-    delay(100)
-    global r,g,b
-    global xpos
-    run = backgroundShade()
-    #noStroke()
-    Bub = bubble(width, height)
-    but = button(70,70,300,run*5,"lable", 23)
-    but.Draw()
-    x = random(0,10)
-    list1 = []
-    if x<3:
-        for i in range(0,6):
-            list1.append(bubble(width,height))
-            list1.append(bubble(width,height))
-            #list1.append(Bub)
-        for j in list1:
-            j.generateBubble()
-            if list1>3:
-                list1.pop()
-            #j.moveBubble()
-    
-    '''x = random(r, 70)
-    y = random(70, 150)
-    v = random(45, 50)
     #delay(100)
-    z = 175
-    fill(x, y, b, v)
-    rect(0,0, height, width)
-    strokeWeight(5)
-    stroke(156,169, 175)
-    fill(174,223, 245, 50)
-    directionalLight(122, 102, 126, 0, -1, 0);
-    ellipse(200, xpos, 30, 30)
-    xpos = xpos-1'''
+    global r,g,b, swarmCount, xpos
     
-    
-    
+    backgroundObj = Background(r,b,g, height, width, swarmCount, img, img1)
+    backgroundObj.generateShade()
+    backgroundObj.generateBubbles()
+    backgroundObj.generateInterface()
