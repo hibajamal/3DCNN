@@ -1,7 +1,7 @@
 import matplotlib
 from matplotlib import pyplot as plt
 import time
-import random as rand
+import random 
 
 class PosVector:
 	def __init__(self, x, y):
@@ -25,9 +25,10 @@ class PosVector:
 		return PosVector(x, y)
 
 class Particle(PosVector):
-	def __init__(self, currPos, gbest, pbest):
+	def __init__(self, currPos, velocity, gbest, pbest):
 		# all will be of type PosVector
 		self.currPos = currPos 
+		self.velocity = velocity
 		self.gbest = gbest
 		self.pbest = pbest
 
@@ -44,7 +45,7 @@ class Swarm:
 		self.xlim = xlim
 		self.ylim = ylim
 		# random position where food source is
-		self.foodSource = PosVector(rand.randrange(0, self.xlim), rand.randrange(0, self.ylim))
+		self.foodSource = PosVector(random.randrange(0, self.xlim), random.randrange(0, self.ylim))
 		print("Food Source placed at:", self.foodSource.x, ",", self.foodSource.y)
 
 	def fitnessFunc(self, particle):
@@ -64,12 +65,14 @@ class Swarm:
 	def init_population(self):
 		for i in range(self.pop_size):
 			# initialize a random position vector
-			pos = PosVector(rand.randrange(0, self.xlim), rand.randrange(0, self.ylim))
+			pos = PosVector(random.randrange(0, self.xlim), random.randrange(0, self.ylim))
+			# initialize random velocity
+			vel = PosVector(random.randrange(0, 5), random.randrange(0, 5))
 			# calc if gbest is to be updated
 			if self.fitnessFunc(self.gbest) < self.fitnessFunc(pos):
 				self.gbest = pos
 			# no movement yet so pbest = original position
-			self.particles[i] = Particle(pos, pos , self.gbest)
+			self.particles[i] = Particle(pos, vel, self.gbest, pos)
 
 	# main loop to run Particle Swarm Optimization
 	def POS(self, iterations):
@@ -90,21 +93,25 @@ class Swarm:
 						self.particles[i].gbest = self.gbest
 
 				# Move all the particles now
-				r1, r2 = rand.random(), rand.random()
-				t1 = self.particles[i].currPos.mulC(self.inertia)
+				r1, r2 = random.random(), random.random()
+				# terms to attain new velocity
+				t1 = self.particles[i].velocity.mulC(self.inertia)
 				t2 = self.subtVectors(self.particles[i].pbest, self.particles[i].currPos).mulC(self.c1*r1)
 				t3 = self.subtVectors(self.gbest, self.particles[i].currPos).mulC(self.c2*r2)
-				self.particles[i].currPos =  self.addVectors([t1, t2, t3])
+				# update velocity
+				self.particles[i].velocity = self.addVectors([t1, t2, t3])
+				# add velocity to current position
+				self.particles[i].currPos =  self.addVectors([self.particles[i].currPos, self.particles[i].velocity])
 			print("avg:", sum(lst)/len(lst), "\nNext iteration:", j+1)
 			ax.plot(lst, color='r')
 			fig.canvas.draw()
 
 # pop_size, xlim, ylim, inertia, c1, c2
-pop_size = 20
+pop_size = 100
 xlim, ylim = 1000, 1000
-inertia = 0.7
-c1 = 0.5
-c2 = 0.2
+inertia = 0.1
+c1 = 0.7
+c2 = 0.1
 
 swarm = Swarm(pop_size, xlim, ylim, inertia, c1, c2)
 print("Initializing population...")
