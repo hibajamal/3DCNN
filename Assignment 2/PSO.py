@@ -75,7 +75,7 @@ class Swarm:
 			self.particles[i] = Particle(pos, vel, self.gbest, pos)
 
 	# main loop to run Particle Swarm Optimization
-	def POS(self, iterations):
+	def PSO(self, iterations):
 		fig = plt.figure()
 		ax = fig.add_subplot(111)
 		fig.show()
@@ -117,5 +117,5 @@ swarm = Swarm(pop_size, xlim, ylim, inertia, c1, c2)
 print("Initializing population...")
 swarm.init_population()
 print("Particle Swarm Optimization starting...")
-swarm.POS(50)
+swarm.PSO(50)
 plt.show()
