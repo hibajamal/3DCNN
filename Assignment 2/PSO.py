@@ -50,13 +50,15 @@ class Swarm:
 
 	def fitnessFunc(self, particle):
 		# fitness is inverse of distance
-		return 1/(((particle.x - self.foodSource.x)**2 +(particle.y - self.foodSource.y)**2)**(1/2))
+		import math
+		f = (math.sqrt((particle.x - self.foodSource.x)**2 +(particle.y - self.foodSource.y)**2))
+		return f
 
 	def addVectors(self, vectors):
 		cx, cy = 0, 0
 		for i in range(len(vectors)):
-			cx += vectors[0].x
-			cy += vectors[0].y
+			cx += vectors[i].x
+			cy += vectors[i].y
 		return PosVector(cx, cy)
 
 	def subtVectors(self, vec1, vec2):
@@ -67,7 +69,7 @@ class Swarm:
 			# initialize a random position vector
 			pos = PosVector(random.randrange(0, self.xlim), random.randrange(0, self.ylim))
 			# initialize random velocity
-			vel = PosVector(random.randrange(0, 5), random.randrange(0, 5))
+			vel = PosVector(random.randrange(-1, 1), random.randrange(-1, 1))
 			# calc if gbest is to be updated
 			if self.fitnessFunc(self.gbest) < self.fitnessFunc(pos):
 				self.gbest = pos
@@ -86,11 +88,11 @@ class Swarm:
 				c = self.fitnessFunc(self.particles[i].currPos) 
 				lst.append(c)
 				# compare and replace with pbest and gbest
-				if c > self.fitnessFunc(self.particles[i].pbest):
+				if c < self.fitnessFunc(self.particles[i].pbest):
 					self.particles[i].pbest = self.particles[i].currPos
-					if c > self.fitnessFunc(self.gbest):
-						self.gbest = self.particles[i].pbest
-						self.particles[i].gbest = self.gbest
+				if c < self.fitnessFunc(self.gbest):
+					self.gbest = self.particles[i].currPos
+					self.particles[i].gbest = self.particles[i].currPos
 
 				# Move all the particles now
 				r1, r2 = random.random(), random.random()
@@ -107,10 +109,10 @@ class Swarm:
 			fig.canvas.draw()
 
 # pop_size, xlim, ylim, inertia, c1, c2
-pop_size = 100
+pop_size = 5
 xlim, ylim = 1000, 1000
-inertia = 0.1
-c1 = 0.7
+inertia = 0.9
+c1 = 0.2
 c2 = 0.1
 
 swarm = Swarm(pop_size, xlim, ylim, inertia, c1, c2)
