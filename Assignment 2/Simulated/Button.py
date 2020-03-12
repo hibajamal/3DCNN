@@ -16,11 +16,13 @@ class button(object):
         self.fontSize =10
         self.font = createFont("Arial", self.fontSize);
         stroke(255,255,255)
+    
         if self.isPressed():
             fill(255);
             rect(self.x, self.y, self.Width, self.Height, 15, 15, 15, 15);
             textFont(self.font);
             fill(100,100,100)
+            popStyle()
             return 1
             
         elif self.isHover():
@@ -38,14 +40,15 @@ class button(object):
   
             
     def Draw(self):
-    
+        pushStyle()
         stroke(255,255,255)
+        fill(255,45,67)
         if self.isPressed():
-            fill(255);
+            fill(255, 100);
             rect(self.x, self.y, self.Width, self.Height, 15, 15, 15, 15);
             textFont(self.font);
-            fill(100,100,100)
-            return 1
+            fill(200,100,0)
+            return True
             
         elif self.isHover():
             fill(255, 100);
@@ -53,12 +56,13 @@ class button(object):
             textFont(self.font);
             fill(20,80,100)
         else:
-            fill(34,100,150);
+            fill(34,10,150);
             rect(self.x, self.y, self.Width, self.Height, 15, 15, 15, 15);
             textFont(self.font);
             fill(255,255,255)
-        
+        popStyle()
     def addText(self, x):
+        #fill(255, 255, 255)
         axis = self.x + x
         text(self.label, self.x + x, self.y+(self.Height-self.fontSize)+5)
         
@@ -67,10 +71,9 @@ class button(object):
             if(mouseY >= self.y and mouseY <= self.y + (self.Height)):
                     return True
         return False
-    
+
     def isPressed(self):
         if (self.isHover()):
             if (mousePressed):
-                
                     return True
         return False
