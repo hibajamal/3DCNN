@@ -58,41 +58,44 @@ class Background(object):
         fill(250,250,250)
     
         text("Frame Count =  "+ str(frameCount), widthMargin, heightMargin)
-
+        lst = []
+        for i in range(12):
+            lst.append(False)
         #line(40, interfaceWidth - 100, 40, heightMargin - 20)
         text("Swarm Count =  "+ str(self.swarmCount), widthMargin, heightMargin*2)
         but = button(interfaceWidth - 60, heightMargin*2 - 18, "I", 20)
-        but.draw(20, 20)
+        lst[0] = but.draw(20, 20)
         but1 = button(interfaceWidth - 30, heightMargin*2 - 18, "D", 20)
-        but1.draw(20, 20)
+        lst[1] = but1.draw(20, 20)
         text("Inertia = "+ str(self.inertia), widthMargin, heightMargin*3)
         but2 = button(interfaceWidth - 60, heightMargin*3 - 18, "I", 20)
-        but2.draw(20, 20)
+        lst[2] = but2.draw(20, 20)
         but3 = button(interfaceWidth - 30, heightMargin*3 - 18, "D", 20)
-        but3.draw(20, 20)
+        lst[3] = but3.draw(20, 20)
         text("c1 = "+ str(self.c1), widthMargin, heightMargin*4)    
         but4 = button(interfaceWidth - 60, heightMargin*4 - 18, "I", 20) 
-        but4.draw(20, 20)
+        lst[4] = but4.draw(20, 20)
         but5 = button(interfaceWidth - 30, heightMargin*4 - 18, "D", 20)
-        but5.draw(20, 20)
+        lst[5] = but5.draw(20, 20)
         text("c2 = "+str(self.c2), widthMargin, heightMargin*5)   
         but6 = button(interfaceWidth - 60, heightMargin*5 - 18, "I", 20)
-        but6.draw(20, 20)
+        lst[6] =but6.draw(20, 20)
         but7 = button(interfaceWidth - 30, heightMargin*5 - 18, "D", 20)
-        but7.draw(20, 20)
+        lst[7] =but7.draw(20, 20)
              
-        lst = [False, False, False, False]
-        button1 = button(widthMargin,heightMargin*6,"Start", 23)
+        
+        button1 = button(widthMargin,heightMargin*6,"Restart", 23)
         button2 = button(widthMargin,heightMargin*7+20,"Pause", 23)
-        button3 = button(widthMargin,heightMargin*8+40,"Restart", 23)
-        a = button1.Draw()
-        if a == 1:
-            lst[0] = True
+        #button3 = button(widthMargin,heightMargin*8+40,"Restart", 23)
+        
+        lst[8] = button1.Draw()
+        
+        lst[9] = button2.Draw()
+
+        #lst[10] = button3.Draw()
         button1.addText(widthMargin+15)
-        b = button2.Draw()
-        if b == 1:
-            lst[1] = True
         button2.addText(widthMargin+8)
-        c = button3.Draw()
-        button3.addText(widthMargin+2)
+        #button3.addText(widthMargin+2)
+        
+        
         return lst
