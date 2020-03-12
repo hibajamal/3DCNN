@@ -38,7 +38,7 @@ class Swarm(object):
   def init_population(self):
     for i in range(self.pop_size):
       # initialize a random position vector
-      pos = PosVector(random(0, self.xlim), random(0, self.ylim))
+      pos = PosVector(random(self.lowerB, self.xlim), random(0, self.ylim))
       # initialize random velocity
       vel = PosVector(random(-1, 1), random(-1, 1))
       # calc if gbest is to be updated
