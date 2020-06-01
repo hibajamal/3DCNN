@@ -1,3 +1,3 @@
-# 3DCNN on 3D MRI Scans 
+# PSO Simulation
 
-We are employing a 3D CNN optimized with Particle Swarm Optimization to identify anomalies in Breast MRI scans to detect Breast Cancer.
+A visualization of Particle Swarm Optimization using Processing in Python.
